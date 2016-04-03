@@ -1,0 +1,122 @@
+{
+    "name": "sampleNetwork1",
+    "network": [
+        {
+            "start": 1,
+            "end": 2,
+            "capacity": 400,
+            "reliability": 0.95
+        },
+        {
+            "start": 1,
+            "end": 5,
+            "capacity": 400,
+            "reliability": 0.95
+        },
+        {
+            "start": 2,
+            "end": 3,
+            "capacity": 400,
+            "reliability": 0.95
+        },
+        {
+            "start": 2,
+            "end": 5,
+            "capacity": 900,
+            "reliability": 0.95
+        },
+        {
+            "start": 2,
+            "end": 6,
+            "capacity": 300,
+            "reliability": 0.95
+        },
+        {
+            "start": 3,
+            "end": 4,
+            "capacity": 600,
+            "reliability": 0.95
+        },
+        {
+            "start": 3,
+            "end": 6,
+            "capacity": 300,
+            "reliability": 0.95
+        },
+        {
+            "start": 3,
+            "end": 7,
+            "capacity": 700,
+            "reliability": 0.95
+        },
+        {
+            "start": 4,
+            "end": 7,
+            "capacity": 200,
+            "reliability": 0.95
+        },
+        {
+            "start": 5,
+            "end": 6,
+            "capacity": 100,
+            "reliability": 0.95
+        },
+        {
+            "start": 5,
+            "end": 8,
+            "capacity": 200,
+            "reliability": 0.95
+        },
+        {
+            "start": 5,
+            "end": 9,
+            "capacity": 400,
+            "reliability": 0.95
+        },
+        {
+            "start": 6,
+            "end": 8,
+            "capacity": 600,
+            "reliability": 0.95
+        },
+        {
+            "start": 6,
+            "end": 9,
+            "capacity": 400,
+            "reliability": 0.95
+        },
+        {
+            "start": 6,
+            "end": 10,
+            "capacity": 300,
+            "reliability": 0.95
+        },
+        {
+            "start": 7,
+            "end": 9,
+            "capacity": 300,
+            "reliability": 0.95
+        },
+        {
+            "start": 7,
+            "end": 10,
+            "capacity": 100,
+            "reliability": 0.95
+        },
+        {
+            "start": 8,
+            "end": 9,
+            "capacity": 900,
+            "reliability": 0.95
+        },
+        {
+            "start": 9,
+            "end": 10,
+            "capacity": 300,
+            "reliability": 0.95
+        }
+    ],
+    "flows": [
+
+    ]
+}
