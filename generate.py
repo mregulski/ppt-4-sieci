@@ -37,7 +37,7 @@ def networkFromFile(file, reliability_min=0, reliability_base=1, reliability_max
                      {'capacity': capacity, 'reliability': reliability, 'flow': 0}))
 
     if len(data['flows']) == 0:
-        print("No flows found - generating random data.")
+        print("No flows found - generating random data:")
         flows = randomFlows(flow_min, flow_max, maxNode)
     else:
         for x in range(len(data['flows'])):

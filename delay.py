@@ -3,7 +3,7 @@ import networkx as nx
 import random
 import matplotlib.pyplot as plot
 # import json
-# import pprint
+import pprint
 import generate
 
 verbosity = 0
@@ -16,22 +16,43 @@ def main(args):
         print("No input file specified - using sample data.")
         network, flows = generate.sampleData(min_packet=1, max_packet=10)
 
+    printFlows(flows)
     drawNetwork(network)
+    sumDelays = 0
+    min_delay = -1
+    max_delay = -1
     if args.intervals is None:
         testFlows(network, flows)
     else:
-        failures = 0
+        failures_none = 0
+        failures_over = 0
         for t in range(args.intervals):
             delay = testFlows(network, flows)
+            if delay is not None:
+                if delay < min_delay or min_delay == -1:
+                    min_delay = delay
+                elif delay > max_delay or max_delay == -1:
+                    max_delay = delay
+                sumDelays += delay
             if delay is None:
-                print("\x1b[0;31mnetwork failure\x1b[0m")
-                failures += 1
+                failures_none += 1
             elif delay > args.max_delay:
-                print("\x1b[0;33mavg delay: {}\x1b[0m".format(delay))
-                failures += 1
-            else:
-                print("\x1b[0;32mavg delay: {}\x1b[0m".format(delay))
-        print("reliability: {:5.2f}".format((1-failures/args.intervals)*100))
+                failures_over += 1
+            if verbosity >= 1:
+                if delay is None:
+                    print("\x1b[0;31mnetwork failure\x1b[0m")
+                elif delay > args.max_delay:
+                    print("\x1b[0;33mavg delay: {}\x1b[0m".format(delay))
+                else:
+                    print("\x1b[0;32mavg delay: {}\x1b[0m".format(delay))
+
+        failures = failures_over + failures_none
+        print("Network failures: {}".format(failures_none))
+        print("Timeouts: {}".format(failures_over))
+        print("Minimum delay: {:.4f}s".format(min_delay))
+        print("Average delay: {:.4f}s".format(sumDelays/(args.intervals-failures_none)))
+        print("Maximum delay: {:.4f}s".format(max_delay))
+        print("Reliability: {:5.2f}".format((1-failures/args.intervals)*100))
 
 
 def testFlows(network, flows):
@@ -59,13 +80,14 @@ def testFlows(network, flows):
                           tmp[x][y]['capacity'], tmp[x][y]['flow'],
                           (tmp[x][y]['flow']/tmp[x][y]['capacity'] * 100),
                           "[FAILED]" if (x, y, tmp[x][y]) in failed else
-                          "[DEPLETED]" if tmp[x][y]['flow'] > tmp[x][y]['capacity'] else ""
+                          "[DEPLETED]" if tmp[x][y]['flow'] >= tmp[x][y]['capacity'] else ""
                           )
                   )
     # print("Depleted connections: {}.".format(depleted if len(depleted) > 0 else "none"))
     if(possible):
         delay = averageDelay(tmp, flows, depleted)
-        if verbosity >= 1:
+        if verbosity >= 2:
+            print("Average delay: {:.4f}s".format(delay))
             if verbosity >= 3:
                 print("depleted: {}".format(depleted))
                 print("removed: {}".format(failed))
@@ -75,7 +97,7 @@ def testFlows(network, flows):
     return None
 
 
-def applyFlows(graph, flows, fail=False):
+def applyFlows(graph, flows, fail=True):
     """
     Check if the graph can realize specified flows.
 
@@ -161,6 +183,19 @@ def flowTotal(flows):
     for flow in flows:
         total += flow['amount']
     return total
+
+
+def printFlows(flows):
+    matrix = [[0]*10 for x in range(10)]
+    for flow in flows:
+        matrix[flow['source']-1][flow['target']-1] = flow['amount']
+    print("[", end='')
+    for x in range(10):
+        print("{}[".format(" " if x != 0 else ""), end='')
+        for y in range(10):
+            print("{:2d}{}".format(matrix[x][y], "," if y != 9 else ""), end='')
+        print("]{}".format("\n" if x != 9 else ""), end='')
+    print("]")
 
 
 def drawNetwork(network):
