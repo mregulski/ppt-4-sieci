@@ -1,0 +1,17 @@
+./reliability.py -i 1000000
+network A
+	Tests: 1000000.
+	Network disconnected in 623103 cases.
+	Reliability: 37.690%.
+network B
+	Tests: 1000000.
+	Network disconnected in 263723 cases.
+	Reliability: 73.628%.
+network C
+	Tests: 1000000.
+	Network disconnected in 129912 cases.
+	Reliability: 87.009%.
+network D
+	Tests: 1000000.
+	Network disconnected in 81615 cases.
+	Reliability: 91.838%.

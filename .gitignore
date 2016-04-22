@@ -1,0 +1,5 @@
+**/.idea/**
+**/out/**
+*.png
+*.iml
+__pycache__/
