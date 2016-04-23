@@ -10,33 +10,20 @@ public class EthernetStufferTest {
     private static EthernetStuffer stuffer;
     @org.junit.BeforeClass
     public static void setUp() throws Exception {
-        stuffer = new EthernetStuffer();
-    }
-    @org.junit.Test
-    public void encodeData() throws Exception {
-        char[] data = "10101010".toCharArray();
-        char[] encoded = stuffer.encodeData(data);
-        assertArrayEquals("011111101010101001111110".toCharArray(), encoded);
+        stuffer = new EthernetStuffer(5);
     }
 
     @org.junit.Test
-    public void encodeDataWithStuffing() throws Exception {
-        char[] data = "0101111110101".toCharArray();
-        char[] encoded = stuffer.encodeData(data);
-        assertArrayEquals("011111100101111101010101111110".toCharArray(), encoded);
-    }
-
-    @org.junit.Test
-    public void decodeDataSameAsUnencoded() throws Exception {
-        char data[] = "001111110010111111011010101010100111".toCharArray();
-        char[] encoded = stuffer.encodeData(data);
-        char[] decoded = stuffer.decodeData(encoded);
-        assertArrayEquals(data, decoded);
+    public void decodedDataSameAsUnencoded() throws Exception {
+        String data = "001111110010111111011010101010100111";
+        String encoded = stuffer.encodeFrame(data);
+        String decoded = stuffer.decodeFrame(encoded);
+        assertEquals(data, decoded);
     }
 
     @org.junit.Test
     public void isValidData() throws Exception {
-        char[] data = "010101".toCharArray();
-        assertEquals(false, stuffer.isValidData(data));
+        String data = "010101";
+        assertEquals(false, stuffer.isValidFrame(data));
     }
 }
