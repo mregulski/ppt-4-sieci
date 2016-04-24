@@ -1,4 +1,4 @@
-package reshi.ppt.networks;
+package reshi.ppt.networks.frames;
 
 import static org.junit.Assert.*;
 

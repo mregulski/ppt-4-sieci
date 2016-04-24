@@ -1,4 +1,4 @@
-package reshi.ppt.networks;
+package reshi.ppt.networks.frames;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
