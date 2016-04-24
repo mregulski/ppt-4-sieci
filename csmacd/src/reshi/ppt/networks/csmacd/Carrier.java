@@ -5,26 +5,25 @@ import java.util.List;
 
 /**
  * @author Marcin
- * @date 2016-04-24
  */
-public class Carrier {
+class Carrier {
     ArrayList<String> data;
 
-    public Carrier() {
+    Carrier() {
         data = new ArrayList<>();
     }
     /**
      * Check if transmission is possible.
-     * @return
+     * @return true if no data has been pushed within a single interval.
      * @throws InterruptedException
      */
-    public boolean canTransmit() throws InterruptedException {
+    boolean canTransmit() throws InterruptedException {
         int sizePre = this.data.size();
-        Thread.sleep(1000);
+        Thread.sleep(100);
         return sizePre == this.data.size();
     }
 
-    public void push(String packet) {
+    void push(String packet) {
         data.add(packet);
         System.out.println(packet);
     }

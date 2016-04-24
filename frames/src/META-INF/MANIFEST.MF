@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: reshi.ppt.networks.Main
+Main-Class: reshi.ppt.networks.frames.Main
 

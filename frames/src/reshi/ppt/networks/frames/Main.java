@@ -8,6 +8,10 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
+        if(args.length < 2) {
+            System.out.println("usage: java -jar frames.jar <send|receive> <file>");
+            System.exit(1);
+        }
         List<String> lines = null;
         try {
             lines = Files.readAllLines(FileSystems.getDefault().getPath(args[1]));
@@ -19,12 +23,11 @@ public class Main {
         StringBuilder data = new StringBuilder("");
         lines.forEach(data::append);
 
-        EthernetStuffer stuffer = new EthernetStuffer(8);
+        EthernetStuffer stuffer = new EthernetStuffer(64);
         String output = null;
         switch (args[0]) {
             case "send":
                 output = stuffer.encode(data.toString());
-
                 break;
             case "receive":
                 output = stuffer.decode(data.toString());

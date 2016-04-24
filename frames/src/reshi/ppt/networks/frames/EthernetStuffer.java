@@ -106,10 +106,8 @@ class EthernetStuffer {
     String decodeFrame(String frame)
     {
         char[] frameChars = frame.toCharArray();
-        // check for corruption
-        if(!isValidFrame(frame)) throw new IllegalArgumentException("Corrupted frame.");
         String stuffed = frame.substring(8, frameChars.length - 8);
-
+        if(!isValidFrame(frame)) { throw new RuntimeException("Corrupted frame"); }
         // unstuff frame
         StringBuilder unstuffed = new StringBuilder();
         int counter = 0;
