@@ -14,6 +14,17 @@ public class Main {
     static boolean logInfo = false;
     public static void main(String[] args) {
 
+        if(args.length == 3) {
+            hostNumber = Integer.parseInt(args[0]);
+            packetProbability = Double.parseDouble(args[1]);
+            packetInterval = Integer.parseInt(args[2]);
+        }
+
+        else if(args.length > 0) {
+            System.out.println("Usage: java -jar csmacd.jar <hosts> <new packet prob> <new packet interval>");
+            System.exit(1);
+        }
+
         ArrayList<Host> hosts = new ArrayList<>();
         Carrier carrier = new Carrier();
         Random r = new Random();
